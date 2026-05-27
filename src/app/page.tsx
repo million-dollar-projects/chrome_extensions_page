@@ -29,6 +29,12 @@ export default function HomePage() {
                 <Link className="rounded-md border border-zinc-300 px-4 py-2 text-zinc-800" href={`/${product.slug}/terms`}>
                   Terms of Use
                 </Link>
+                <Link
+                  className="rounded-md border border-zinc-300 px-4 py-2 text-zinc-800"
+                  href={`/uninstall?product=${encodeURIComponent(product.name)}`}
+                >
+                  Uninstall Feedback
+                </Link>
               </div>
             </article>
           ))}
