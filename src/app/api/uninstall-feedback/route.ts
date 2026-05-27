@@ -31,6 +31,7 @@ function cleanText(value: unknown, maxLength: number) {
 function buildIssueBody(input: {
   product: string;
   reason: string;
+  reasonDetail: string;
   details: string;
   email: string;
   extensionId: string;
@@ -41,6 +42,9 @@ function buildIssueBody(input: {
   return [
     "## Uninstall Reason",
     reasonLabels[input.reason] || input.reason,
+    "",
+    "## Reason Detail",
+    input.reasonDetail || "Not provided",
     "",
     "## Additional Details",
     input.details || "Not provided",
@@ -91,12 +95,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: "Invalid uninstall reason." }, { status: 400 });
   }
 
+  const reasonDetail = cleanText(data.reasonDetail, 1200);
+
+  if (!reasonDetail) {
+    return NextResponse.json({ success: false, error: "Reason detail is required." }, { status: 400 });
+  }
+
   const product = cleanText(data.product, 120) || "Chrome extension";
   const issue = {
     title: `Uninstall feedback: ${product} - ${reasonLabels[reason]}`,
     body: buildIssueBody({
       product,
       reason,
+      reasonDetail,
       details: cleanText(data.details, 3000),
       email: cleanText(data.email, 200),
       extensionId: cleanText(data.extensionId, 120),
