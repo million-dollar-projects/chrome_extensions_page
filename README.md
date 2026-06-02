@@ -6,6 +6,7 @@ Standalone legal/support pages for Chrome extension products.
 
 - `/xtonotion/privacy`
 - `/xtonotion/terms`
+- `/ai-chat-backup/privacy`
 - `/uninstall`
 
 The uninstall feedback page accepts optional query parameters:

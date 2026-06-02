@@ -5,6 +5,13 @@ const products = [
     name: "X/Twitter Tweet Backup",
     slug: "xtonotion",
     description: "Export X/Twitter tweet detail pages and visible threads to Markdown, with optional Notion sync.",
+    hasTerms: true,
+  },
+  {
+    name: "ChatGPT & AI Chat Backup",
+    slug: "ai-chat-backup",
+    description: "Export AI conversations to Markdown or an Obsidian folder, with optional Notion sync.",
+    hasTerms: false,
   },
 ];
 
@@ -26,9 +33,11 @@ export default function HomePage() {
                 <Link className="rounded-md bg-zinc-950 px-4 py-2 text-white" href={`/${product.slug}/privacy`}>
                   Privacy Policy
                 </Link>
-                <Link className="rounded-md border border-zinc-300 px-4 py-2 text-zinc-800" href={`/${product.slug}/terms`}>
-                  Terms of Use
-                </Link>
+                {product.hasTerms && (
+                  <Link className="rounded-md border border-zinc-300 px-4 py-2 text-zinc-800" href={`/${product.slug}/terms`}>
+                    Terms of Use
+                  </Link>
+                )}
                 <Link
                   className="rounded-md border border-zinc-300 px-4 py-2 text-zinc-800"
                   href={`/uninstall?product=${encodeURIComponent(product.name)}`}
